@@ -1,0 +1,70 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:8.0.13
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  discovery-service:
+    image: discovery-service
+    container_name: discovery-service
+    build: ./ServiceRegistry
+    ports:
+      - "8761:8761"
+
+  user-service:
+    image: user-service
+#    container_name: user-service
+    build: ./userservice
+#    ports:
+#      - "8081:8081"
+    expose:
+      - "8081"
+    depends_on:
+      - mongo
+      - discovery-service
+
+  rating-service:
+    image: rating-service
+    container_name: rating-service
+    build: ./ratingservice
+    ports:
+      - "8083:8083"
+    depends_on:
+      - mongo
+      - discovery-service
+
+  api-gateway:
+    image: api-gateway
+    container_name: api-gateway
+    build: ./apiGatewayService
+    ports:
+      - "8084:8084"
+    depends_on:
+      - discovery-service
+
+  hotel-service:
+    image: hotel-service
+    container_name: hotel-service
+    build: ./hotelservice
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mongo
+      - discovery-service
+volumes:
+  mongo-data:
+    driver: local
+
+#networks:
+#  default:
+#    external: true
+#    name: microservices-network
+

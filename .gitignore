@@ -1,0 +1,6 @@
+.idea/
+apiGatewayService/target/
+hotelservice/target/
+ratingservice/target/
+ServiceRegistry/target/
+userservice/target/

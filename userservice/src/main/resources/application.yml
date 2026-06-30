@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: USER-SERVICE
+  data:
+    mongodb:
+#      uri: mongodb+srv://amithari:Kumar123@mongodb.y5ywqil.mongodb.net
+      uri: mongodb://root:password@mongo:27017/mydb?authSource=admin
+
+
+server:
+  port: 8081
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka
