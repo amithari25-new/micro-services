@@ -3,7 +3,6 @@ spring:
     name: HOTEL-SERVICE
   data:
     mongodb:
-      #uri: mongodb+srv://hari:jDJXY7UiAX5OqW3B@mongodb.y5ywqil.mongodb.net
       uri: mongodb://root:password@mongo:27017/mydb?authSource=admin
       database: mydb
   depends:
