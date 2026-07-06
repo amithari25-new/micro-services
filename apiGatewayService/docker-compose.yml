@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  api-gateway:
+    image: iamamithari/api-gateway:1.0
+    container_name: api-gateway
+    build: .
+    ports:
+      - "8084:8084"
+    networks:
+      - microservices-network
+
+
+networks:
+    microservices-network:
+        external: true
+        name: microservices-network

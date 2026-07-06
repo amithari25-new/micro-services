@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  user-service:
+    image: iamamithari/user-service:1.0
+    container_name: user-service
+    build: .
+    ports:
+      - "8081:8081"
+    networks:
+      - microservices-network
+
+
+networks:
+    microservices-network:
+        external: true
+        name: microservices-network

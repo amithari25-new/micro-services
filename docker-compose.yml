@@ -13,14 +13,14 @@ services:
       - mongo-data:/data/db
 
   discovery-service:
-    image: discovery-service
+    image: iamamithari/discovery-service:1.0
     container_name: discovery-service
     build: ./ServiceRegistry
     ports:
       - "8761:8761"
 
   user-service:
-    image: user-service
+    image: iamamithari/user-service:1.0
 #    container_name: user-service
     build: ./userservice
 #    ports:
@@ -32,7 +32,7 @@ services:
       - discovery-service
 
   rating-service:
-    image: rating-service
+    image: iamamithari/rating-service:1.0
     container_name: rating-service
     build: ./ratingservice
     ports:
@@ -42,7 +42,7 @@ services:
       - discovery-service
 
   api-gateway:
-    image: api-gateway
+    image: iamamithari/api-gateway:1.0
     container_name: api-gateway
     build: ./apiGatewayService
     ports:
@@ -51,7 +51,7 @@ services:
       - discovery-service
 
   hotel-service:
-    image: hotel-service
+    image: iamamithari/hotel-service:1.0
     container_name: hotel-service
     build: ./hotelservice
     ports:
@@ -63,8 +63,8 @@ volumes:
   mongo-data:
     driver: local
 
-#networks:
-#  default:
-#    external: true
-#    name: microservices-network
+networks:
+    microservices-network:
+        external: true
+        name: microservices-network
 

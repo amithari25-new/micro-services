@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  rating-service:
+    image: iamamithari/rating-service:1.0
+    container_name: rating-service
+    build: .
+    ports:
+      - "8083:8083"
+    networks:
+      - microservices-network
+
+networks:
+    microservices-network:
+        external: true
+        name: microservices-network
