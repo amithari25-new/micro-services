@@ -24,8 +24,8 @@ spring:
             - Path=/ratings/**
 
 eureka:
-  instance:
-    prefer-ip-address: true
+#  instance:
+#    prefer-ip-address: true
   client:
     fetch-registry: true
     register-with-eureka: true

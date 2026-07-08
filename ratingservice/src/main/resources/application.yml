@@ -10,8 +10,8 @@ spring:
       uri: mongodb://root:password@mongo:27017/mydb?authSource=admin
 
 eureka:
-  instance:
-    prefer-ip-address: true
+#  instance:
+#    prefer-ip-address: true
   client:
     fetch-registry: true
     register-with-eureka: true
