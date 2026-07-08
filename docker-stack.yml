@@ -1,0 +1,99 @@
+version: "3.9"
+
+services:
+
+  mongo:
+    image: mongo:8.0.13
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - microservices-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == manager
+      restart_policy:
+        condition: on-failure
+
+  discovery-service:
+    image: iamamithari/discovery-service:1.0
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == manager
+      restart_policy:
+        condition: on-failure
+
+  api-gateway:
+    image: iamamithari/api-gateway:1.0
+    ports:
+      - "8084:8084"
+    networks:
+      - microservices-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == worker-1
+      restart_policy:
+        condition: on-failure
+
+  hotel-service:
+    image: iamamithari/hotel-service:1.0
+    ports:
+      - "8082:8082"
+    networks:
+      - microservices-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == worker-1
+      restart_policy:
+        condition: on-failure
+
+  user-service:
+    image: iamamithari/user-service:1.0
+    ports:
+      - "8081:8081"
+    networks:
+      - microservices-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == worker-2
+      restart_policy:
+        condition: on-failure
+
+  rating-service:
+    image: iamamithari/rating-service:1.0
+    ports:
+      - "8083:8083"
+    networks:
+      - microservices-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == worker-2
+      restart_policy:
+        condition: on-failure
+
+networks:
+  microservices-network:
+    external: true
+
+volumes:
+  mongo-data:
