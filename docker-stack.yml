@@ -51,8 +51,6 @@ services:
 
   hotel-service:
     image: iamamithari/hotel-service:1.0
-    ports:
-      - "8082:8082"
     networks:
       - microservices-network
     deploy:
@@ -65,8 +63,6 @@ services:
 
   user-service:
     image: iamamithari/user-service:1.0
-    ports:
-      - "8081:8081"
     networks:
       - microservices-network
     deploy:
@@ -79,8 +75,6 @@ services:
 
   rating-service:
     image: iamamithari/rating-service:1.0
-    ports:
-      - "8083:8083"
     networks:
       - microservices-network
     deploy:
