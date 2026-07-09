@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+
+  api-gateway:
+    image: iamamithari/api-gateway:1.0
+    ports:
+      - "8084:8084"
+    networks:
+      - microservices-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == worker-1
+      restart_policy:
+        condition: on-failure
+
+networks:
+  microservices-network:
+    external: true
