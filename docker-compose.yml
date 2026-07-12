@@ -14,6 +14,18 @@ services:
     networks:
         - microservices-network
 
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api-gateway
+    networks:
+      - microservices-network
+
   discovery-service:
     image: discovery-service:1.0
     container_name: discovery-service
@@ -27,8 +39,8 @@ services:
     image: user-service:1.0
     container_name: user-service
     build: ./userservice
-    ports:
-      - "8081:8081"
+#    ports:
+#      - "8081:8081"
 #    expose:
 #      - "8081"
     networks:
@@ -41,8 +53,8 @@ services:
     image: rating-service:1.0
     container_name: rating-service
     build: ./ratingservice
-    ports:
-      - "8083:8083"
+#    ports:
+#      - "8083:8083"
     networks:
         - microservices-network
     depends_on:
@@ -53,8 +65,8 @@ services:
     image: api-gateway:1.0
     container_name: api-gateway
     build: ./apiGatewayService
-    ports:
-      - "8084:8084"
+#    ports:
+#      - "8084:8084"
     networks:
         - microservices-network
     depends_on:
@@ -64,8 +76,8 @@ services:
     image: hotel-service:1.0
     container_name: hotel-service
     build: ./hotelservice
-    ports:
-      - "8082:8082"
+#    ports:
+#      - "8082:8082"
     networks:
         - microservices-network
     depends_on:
