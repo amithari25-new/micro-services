@@ -63,7 +63,7 @@ services:
 
   api-gateway:
     image: api-gateway:1.0
-    container_name: api-gateway
+#    container_name: api-gateway
     build: ./apiGatewayService
 #    ports:
 #      - "8084:8084"
