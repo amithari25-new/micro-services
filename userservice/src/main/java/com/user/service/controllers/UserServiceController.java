@@ -1,5 +1,7 @@
 package com.user.service.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.user.service.entites.Hotel;
 import com.user.service.entites.Rating;
 import com.user.service.entites.User;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 public class UserServiceController {
     @Autowired private UserService userService;
     @Autowired private RestTemplate restTemplate;
+    private ObjectMapper om = new ObjectMapper();
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Value("${server.port}")
@@ -38,7 +41,8 @@ public class UserServiceController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<User> createUser(@RequestBody User user) throws JsonProcessingException {
+        logger.info("Request received to create a new user: {}", om.writeValueAsString(user));
         User user1 = userService.create(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user1);
     }
